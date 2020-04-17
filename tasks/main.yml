@@ -1,2 +1,24 @@
 ---
+- name: Install requirements
+  package:
+    name: ["git"]
+    state: present
 
+- name: Check if omeka directories already exists
+  stat:
+    path: "{{ omeka_separate_git_dir }}"
+  register: omeka_git_dir
+
+- name: Clone Omeka git repository
+  git:
+    repo: https://github.com/PlanningBiblio/PlanningBiblio.git
+    dest: "{{ omeka_content_dest }}"
+    version: "{{ omeka_git_branch_version }}"
+    separate_git_dir: "{{ omeka_separate_git_dir }}"
+    force: true
+  when: not omeka_git_dir.stat.exists or omeka_force_update
+
+- name: Install omeka npm package.
+  npm:
+    name: install --global gulp-cli
+    path: "{{ omeka_content_dest }}"

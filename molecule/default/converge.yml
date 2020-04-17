@@ -1,5 +1,46 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    - name: Update apt cache.
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
   roles:
-    - role: supertarto.
+    - role: supertarto.apache
+    - role: supertarto.mariadb
+    - role: supertarto.nodejs
+    - role: supertarto.php   
+    - role: supertarto.omeka
+
+  vars:
+    php_packages:
+      - php7.3
+      - php7.3-mysql
+      - php7.3-pdo
+      - php7.3-xml
+    apache_create_vhosts: true
+    apache_vhosts_filename: "omeka.conf"
+    apache_vhost_config:
+      - listen_ip: "*"
+        listen_port: 80
+        server_name: host1
+        documentroot: "{{ omeka_content_dest }}"
+        serveradmin: admin@localhost
+        custom_param: |
+          ErrorLog ${APACHE_LOG_DIR}/error.log
+          CustomLog ${APACHE_LOG_DIR}/access.log combined
+          LogLevel warn
+        directory:
+          - path: "{{ omeka_content_dest }}"
+            config: |
+              AllowOverride All
+              Order deny,allow
+              allow from all
+
+    mariadb_use_dump_script: false
+    mariadb_databases:
+      - name: "Omeka"
