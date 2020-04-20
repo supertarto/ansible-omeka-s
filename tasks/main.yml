@@ -20,5 +20,5 @@
 
 - name: Install omeka npm package.
   npm:
-    name: install --global gulp-cli
+    name: "{{ omeka_content_dest }}/install --global gulp-cli"
     path: "{{ omeka_content_dest }}"
