@@ -1,0 +1,5 @@
+---
+- name: GULP init
+  command: gulp init
+  args:
+    chdir: "{{ omeka_content_dest }}"
