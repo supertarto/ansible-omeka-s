@@ -3,3 +3,8 @@ omeka_force_update: false
 omeka_separate_git_dir: "/usr/local/omeka-git"
 omeka_content_dest: "/var/www/omeka/"
 omeka_git_branch_version: "master"
+
+omeka_db_user: omeka
+omeka_db_password: omekapass
+omeka_db_name: omekadb
+omeka_db_host: localhost

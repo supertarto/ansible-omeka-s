@@ -11,14 +11,44 @@
 
 - name: Clone Omeka git repository
   git:
-    repo: https://github.com/PlanningBiblio/PlanningBiblio.git
+    repo: https://github.com/omeka/omeka-s.git
     dest: "{{ omeka_content_dest }}"
     version: "{{ omeka_git_branch_version }}"
     separate_git_dir: "{{ omeka_separate_git_dir }}"
     force: true
   when: not omeka_git_dir.stat.exists or omeka_force_update
 
-- name: Install omeka npm package.
+- name: NPM install command for Omeka-S.
   npm:
-    name: "{{ omeka_content_dest }}/install --global gulp-cli"
     path: "{{ omeka_content_dest }}"
+    unsafe_perm: true
+
+- name: NPM install GUlP-CLI command for Omeka-S.
+  npm:
+    name: "{{ item }}"
+    path: "{{ omeka_content_dest }}"
+    global: true
+    unsafe_perm: true
+  with_items:
+    - "gulp-cli"
+    - "gulp-sass"
+  register: npm_install_changed
+  
+- name: GULP init
+  command: gulp init
+  args:
+    chdir: "{{ omeka_content_dest }}"
+  when: npm_install_changed.changed
+
+- name: Copy database.ini
+  template:
+    src: database.ini.j2
+    dest: "{{ omeka_content_dest }}/config/database.ini"
+    mode: 0644
+
+- name: Change Web directory owner
+  file:
+    path: "{{ omeka_content_dest }}"
+    owner: www-data
+    group: www-data
+    recurse: true

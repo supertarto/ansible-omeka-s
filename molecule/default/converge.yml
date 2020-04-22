@@ -22,6 +22,9 @@
       - php7.3-mysql
       - php7.3-pdo
       - php7.3-xml
+      - php7.3-mbstring
+      - php7.3-intl
+
     apache_create_vhosts: true
     apache_vhosts_filename: "omeka.conf"
     apache_vhost_config:
@@ -41,6 +44,17 @@
               Order deny,allow
               allow from all
 
-    mariadb_use_dump_script: false
-    mariadb_databases:
-      - name: "Omeka"
+        mariadb_use_dump_script: false
+        mariadb_databases:
+          - name: "{{ omeka_db_name }}"
+
+        mariadb_users:
+          - name: "{{ omeka_db_user }}"
+            host: "{{ omeka_db_host }}"
+            password: "{{ omeka_db_password }}"
+            priv: "{{ omeka_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
+
+        omeka_db_user: omeka
+        omeka_db_password: omekapass
+        omeka_db_name: omekadb
+        omeka_db_host: localhost
