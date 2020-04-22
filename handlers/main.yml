@@ -3,3 +3,10 @@
   command: gulp init
   args:
     chdir: "{{ omeka_content_dest }}"
+
+- name: Change Web directory owner
+  file:
+    path: "{{ omeka_content_dest }}"
+    owner: www-data
+    group: www-data
+    recurse: true

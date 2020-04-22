@@ -41,10 +41,4 @@
     group: www-data
     dest: "{{ omeka_content_dest }}/config/database.ini"
     mode: 0644
-
-- name: Change Web directory owner
-  file:
-    path: "{{ omeka_content_dest }}"
-    owner: www-data
-    group: www-data
-    recurse: true
+  notify: Change Web directory owner
