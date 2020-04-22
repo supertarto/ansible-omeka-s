@@ -33,7 +33,7 @@
     - "gulp-cli"
     - "gulp-sass"
   register: npm_install_changed
-  
+
 - name: GULP init
   command: gulp init
   args:
