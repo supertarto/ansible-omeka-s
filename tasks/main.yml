@@ -37,6 +37,8 @@
 - name: Copy database.ini
   template:
     src: database.ini.j2
+    owner: www-data
+    group: www-data
     dest: "{{ omeka_content_dest }}/config/database.ini"
     mode: 0644
 
