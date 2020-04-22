@@ -39,6 +39,7 @@
   args:
     chdir: "{{ omeka_content_dest }}"
   when: npm_install_changed.changed
+  tags: ['skip_ansible_lint']
 
 - name: Copy database.ini
   template:
