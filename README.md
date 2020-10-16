@@ -1,5 +1,5 @@
 # Ansible Omeka
-[![Build Status](https://travis-ci.org/supertarto/ansible-omeka.svg?branch=master)](https://travis-ci.org/supertarto/ansible-omeka)
+[![Build Status](https://travis-ci.com/supertarto/ansible-omeka.svg?branch=master)](https://travis-ci.com/supertarto/ansible-omeka)
 
 Install and configure Omeka with Ansible. For now, only work with Omeka-S
 
