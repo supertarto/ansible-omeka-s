@@ -3,6 +3,8 @@
 
 Install and configure Omeka with Ansible. For now, only work with Omeka-S
 
+NEED A REWORK
+
 ## Requirements
 A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb and supertarto.php
 
