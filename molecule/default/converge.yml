@@ -30,14 +30,14 @@
       - listen_ip: "*"
         listen_port: 80
         server_name: host1
-        documentroot: "{{ omeka_content_dest }}"
+        documentroot: "{{ omekaS_content_dest }}"
         serveradmin: admin@localhost
         custom_param: |
           ErrorLog ${APACHE_LOG_DIR}/error.log
           CustomLog ${APACHE_LOG_DIR}/access.log combined
           LogLevel warn
         directory:
-          - path: "{{ omeka_content_dest }}"
+          - path: "{{ omekaS_content_dest }}"
             config: |
               AllowOverride All
               Order deny,allow
