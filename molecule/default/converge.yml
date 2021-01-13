@@ -45,7 +45,7 @@
 
         mariadb_use_dump_script: false
         mariadb_databases:
-          - name: "{{ omeka_db_name }}"
+          - name: "{{ omekaS_db_name }}"
 
         mariadb_users:
           - name: "{{ omekaS_db_user }}"
