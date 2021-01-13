@@ -1,7 +1,7 @@
-# Ansible Omeka
+# Ansible Omeka S
 [![CI](https://github.com/supertarto/ansible-omeka/workflows/CI/badge.svg?event=push)](https://github.com/supertarto/ansible-omeka/actions?query=workflow%3ACI)
 
-Install and configure Omeka with Ansible. For now, only work with Omeka-S
+Install and configure Omeka S with Ansible.
 
 NEED A REWORK
 
