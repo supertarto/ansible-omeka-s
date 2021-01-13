@@ -13,8 +13,8 @@ galaxy_info:
         - "buster"
 
   galaxy_tags:
-    - Omeka
-    - Archives
-    - Repositories
+    - omeka
+    - archives
+    - repositories
 
 dependencies: []
