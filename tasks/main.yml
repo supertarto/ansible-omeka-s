@@ -1,4 +1,9 @@
 ---
+- name: "Install unzip"
+  ansible.builtin.package:
+    name: ['unzip']
+    state: present
+
 - name: Check if omeka S directories already exists
   ansible.builtin.stat:
     path: "{{ omekaS_content_dest }}"
