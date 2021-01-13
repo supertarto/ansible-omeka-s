@@ -1,10 +1,14 @@
 ---
-omeka_force_update: false
-omeka_separate_git_dir: "/usr/local/omeka-git"
-omeka_content_dest: "/var/www/omeka/"
-omeka_git_branch_version: "master"
+omekaS_force_update: false
+omekaS_release_version: "3.0.1"
+omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
+omekaS_content_dest: "/var/www/omeka/"
+omekaS_backup_directory: /"usr/local/omeka-bck"
 
-omeka_db_user: omeka
-omeka_db_password: omekapass
-omeka_db_name: omekadb
-omeka_db_host: localhost
+omekaS_web_owner: www-data
+omekaS_web_group: www-data
+
+omekaS_db_user: omeka
+omekaS_db_password: omekapass
+omekaS_db_name: omekadb
+omekaS_db_host: localhost

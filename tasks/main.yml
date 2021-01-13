@@ -1,44 +1,64 @@
 ---
-- name: Install requirements
-  package:
-    name: ["git"]
-    state: present
+- name: Check if omeka S directories already exists
+  ansible.builtin.stat:
+    path: "{{ omekaS_content_dest }}"
+  register: omekaS_installed
 
-- name: Check if omeka directories already exists
-  stat:
-    path: "{{ omeka_separate_git_dir }}"
-  register: omeka_git_dir
+- name: Create a configuration backup directory 
+  ansible.builtin.file:
+    path: "{{ omekaS_backup_directory }}"
+    state: directory
 
-- name: Clone Omeka git repository
-  git:
-    repo: https://github.com/omeka/omeka-s.git
-    dest: "{{ omeka_content_dest }}"
-    version: "{{ omeka_git_branch_version }}"
-    separate_git_dir: "{{ omeka_separate_git_dir }}"
+- name: Backup your configurations before update (Update only)
+  ansible.builtin.copy:
+    src: "{{ omekaS_content_dest }}/{{ item }}"
+    dest: "{{ omekaS_backup_directory }}/{{ item }}"
+    mode: '0640'
     force: true
-  when: not omeka_git_dir.stat.exists or omeka_force_update
-
-- name: NPM install command for Omeka-S.
-  npm:
-    path: "{{ omeka_content_dest }}"
-    unsafe_perm: true
-
-- name: NPM install GUlP-CLI command for Omeka-S.
-  npm:
-    name: "{{ item }}"
-    path: "{{ omeka_content_dest }}"
-    global: true
-    unsafe_perm: true
   with_items:
-    - "gulp-cli"
-    - "gulp-sass"
-  notify: GULP init
+    - "config"
+    - "modules"
+    - "themes"
+    - "files"
+  when: omekaS_installed.stat.exists and omekaS_update
+
+- name: Download and extract Omeka S
+  ansible.builtin.unarchive:
+    src: "{{ omekaS_download_url }}"
+    remote_src: true
+    dest: "{{ omekaS_content_dest }}"
+    owner: "{{ omekaS_web_owner }}"
+    group: "{{ omekaS_web_group }}"
+    validate_certs: false
+  when: not omekaS_installed.stat.exists or omekaS_update
+
+- name: Set permisions to files directory
+  ansible.builtin.file:
+    path: "{{ omekaS_content_dest }}/files"
+    owner: "{{ omekaS_web_owner }}"
+    group: "{{ omekaS_web_group }}"
+    mode: "0755"
+  when: not omekaS_installed.stat.exists or omekaS_update
+
+- name: Restore your configurations files (Update Only)
+  ansible.builtin.copy:
+    src: "{{ omekaS_content_dest }}/{{ item }}"
+    dest: "{{ omekaS_backup_directory }}/{{ item }}"
+    owner: "{{ omekaS_web_owner }}"
+    group: "{{ omekaS_web_group }}"
+    force: true
+  with_items:
+    - "config/local.config.php"
+    - "modules"
+    - "themes"
+    - "files"
+  when: omekaS_installed.stat.exists and omekaS_update
 
 - name: Copy database.ini
-  template:
+  ansible.builtin.template:
     src: database.ini.j2
-    owner: www-data
-    group: www-data
-    dest: "{{ omeka_content_dest }}/config/database.ini"
+    owner: "{{ omekaS_web_owner }}"
+    group: "{{ omekaS_web_group }}"
+    dest: "{{ omekaS_content_dest }}/config/database.ini"
     mode: 0644
   notify: Change Web directory owner

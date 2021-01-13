@@ -1,9 +1,8 @@
 # Ansible Omeka S
-[![CI](https://github.com/supertarto/ansible-omeka/workflows/CI/badge.svg?event=push)](https://github.com/supertarto/ansible-omeka/actions?query=workflow%3ACI)
+[![CI](https://github.com/supertarto/ansible-omeka-S/workflows/CI/badge.svg?event=push)](https://github.com/supertarto/ansible-omeka-S/actions?query=workflow%3ACI)
 
 Install and configure Omeka S with Ansible.
 
-NEED A REWORK
 
 ## Requirements
 A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb and supertarto.php
@@ -11,23 +10,45 @@ A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb
 ## Tested plateform
 * Debian 10 (Buster)
 
+omekaS_force_update: false
+omekaS_release_version: "3.0.1"
+omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
+omekaS_content_dest: "/var/www/omeka/"
+omekaS_backup_directory: /"usr/local/omeka-bck"
+
+omekaS_web_owner: www-data
+omekaS_web_group: www-data
+
+omekaS_db_user: omeka
+omekaS_db_password: omekapass
+omekaS_db_name: omekadb
+omekaS_db_host: localhost
 ## Role variables
 Force omeka update
 ```yml
-omeka_force_update: false
+omekaS_force_update: false
 ```
-Define the git directory, the web content directory and the git branch to use.
+Define wich version to download, the download link and the destination.
 ```yml
-omeka_separate_git_dir: "/usr/local/omeka-git"
-omeka_content_dest: "/var/www/omeka/"
-omeka_git_branch_version: "master"
+omekaS_release_version: "3.0.1"
+omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
+omekaS_content_dest: "/var/www/omeka/"
+```
+The directory where your local configurations will be backed up. Used only with omekaS_force_update set to True
+```yml
+omekaS_backup_directory: /"usr/local/omeka-bck"
+```
+The web user and group
+```yml
+omekaS_web_owner: www-data
+omekaS_web_group: www-data
 ```
 Used in database.ini
 ```yml
-omeka_db_user: omeka
-omeka_db_password: omekapass
-omeka_db_name: omekadb
-omeka_db_host: localhost
+omekaS_db_user: omeka
+omekaS_db_password: omekapass
+omekaS_db_name: omekadb
+omekaS_db_host: localhost
 ```
 
 ## Examples
@@ -77,10 +98,11 @@ apache_vhost_config:
           password: "{{ omeka_db_password }}"
           priv: "{{ omeka_db_name }}.*:SELECT,INSERT,   UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
 
-    omeka_db_user: omeka
-    omeka_db_password: omekapass
-    omeka_db_name: omekadb
-    omeka_db_host: localhost
+    omekaS_release_version: "3.0.1"
+    omekaS_db_user: omeka
+    omekaS_db_password: omekapass
+    omekaS_db_name: omekadb
+    omekaS_db_host: localhost
 ```
 
 ## Installation

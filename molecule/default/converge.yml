@@ -12,7 +12,6 @@
   roles:
     - role: supertarto.apache
     - role: supertarto.mariadb
-    - role: supertarto.nodejs
     - role: supertarto.php
     - role: supertarto.omeka
 
@@ -49,12 +48,13 @@
           - name: "{{ omeka_db_name }}"
 
         mariadb_users:
-          - name: "{{ omeka_db_user }}"
-            host: "{{ omeka_db_host }}"
-            password: "{{ omeka_db_password }}"
-            priv: "{{ omeka_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
+          - name: "{{ omekaS_db_user }}"
+            host: "{{ omekaS_db_host }}"
+            password: "{{ omekaS_db_password }}"
+            priv: "{{ omekaS_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
 
-        omeka_db_user: omeka
-        omeka_db_password: omekapass
-        omeka_db_name: omekadb
-        omeka_db_host: localhost
+    omekaS_release_version: "3.0.1"
+    omekaS_db_user: omeka
+    omekaS_db_password: omekapass
+    omekaS_db_name: omekadb
+    omekaS_db_host: localhost
