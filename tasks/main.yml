@@ -4,7 +4,7 @@
     path: "{{ omekaS_content_dest }}"
   register: omekaS_installed
 
-- name: Create a configuration backup directory 
+- name: Create a configuration backup directory
   ansible.builtin.file:
     path: "{{ omekaS_backup_directory }}"
     state: directory
@@ -60,5 +60,5 @@
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
     dest: "{{ omekaS_content_dest }}/config/database.ini"
-    mode: 0644
+    mode: "0644"
   notify: Change Web directory owner

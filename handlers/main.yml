@@ -1,7 +1,7 @@
 ---
 - name: Change Web directory owner
   file:
-    path: "{{ omeka_content_dest }}"
+    path: "{{ omekaS_content_dest }}"
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
     recurse: true

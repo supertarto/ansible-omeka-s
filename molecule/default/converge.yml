@@ -13,7 +13,7 @@
     - role: supertarto.apache
     - role: supertarto.mariadb
     - role: supertarto.php
-    - role: supertarto.omeka
+    - role: supertarto.omeka-S
 
   vars:
     php_packages:
