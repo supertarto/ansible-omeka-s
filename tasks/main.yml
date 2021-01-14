@@ -27,6 +27,7 @@
     - "files"
   when: omekaS_installed.stat.exists and omekaS_update
 
+# vérifier le nom du dossier extrait pour corriger erreur dans GA
 - name: Download and extract Omeka S
   ansible.builtin.unarchive:
     src: "{{ omekaS_download_url }}"
