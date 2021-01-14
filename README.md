@@ -108,7 +108,7 @@ apache_vhost_config:
 
 ## Installation
 ```
-ansible-galaxy install supertarto.omeka
+ansible-galaxy install supertarto.omeka_s
 ```
 ## License
 GPL V3.0
