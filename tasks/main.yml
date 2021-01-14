@@ -25,7 +25,7 @@
     - "modules"
     - "themes"
     - "files"
-  when: omekaS_installed.stat.exists and omekaS_update
+  when: omekaS_installed.stat.exists and omekaS_force_update
 
 # vérifier le nom du dossier extrait pour corriger erreur dans GA
 - name: Download and extract Omeka S
@@ -36,7 +36,7 @@
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
     validate_certs: false
-  when: not omekaS_installed.stat.exists or omekaS_update
+  when: not omekaS_installed.stat.exists or omekaS_force_update
 
 - name: Set permisions to files directory
   ansible.builtin.file:
@@ -44,7 +44,7 @@
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
     mode: "0755"
-  when: not omekaS_installed.stat.exists or omekaS_update
+  when: not omekaS_installed.stat.exists or omekaS_force_update
 
 - name: Restore your configurations files (Update Only)
   ansible.builtin.copy:
@@ -58,7 +58,7 @@
     - "modules"
     - "themes"
     - "files"
-  when: omekaS_installed.stat.exists and omekaS_update
+  when: omekaS_installed.stat.exists and omekaS_force_update
 
 - name: Copy database.ini
   ansible.builtin.template:
