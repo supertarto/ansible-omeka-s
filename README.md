@@ -10,19 +10,6 @@ A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb
 ## Tested plateform
 * Debian 10 (Buster)
 
-omekaS_force_update: false
-omekaS_release_version: "3.0.1"
-omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
-omekaS_content_dest: "/var/www/omeka/"
-omekaS_backup_directory: /"usr/local/omeka-bck"
-
-omekaS_web_owner: www-data
-omekaS_web_group: www-data
-
-omekaS_db_user: omeka
-omekaS_db_password: omekapass
-omekaS_db_name: omekadb
-omekaS_db_host: localhost
 ## Role variables
 Force omeka update
 ```yml
@@ -60,7 +47,7 @@ roles:
     - role: supertarto.mariadb
     - role: supertarto.nodejs
     - role: supertarto.php
-    - role: supertarto.omeka
+    - role: supertarto.omeka_s
 vars:
 php_packages:
     - php7.3
