@@ -1,7 +1,7 @@
 ---
 - name: "Install unzip"
   ansible.builtin.package:
-    name: ['unzip']
+    name: ['unzip','imagemagick']
     state: present
 
 - name: Check if omeka S directories already exists
