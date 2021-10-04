@@ -9,6 +9,7 @@ A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb
 
 ## Tested plateform
 * Debian 10 (Buster)
+* Debian 11 (Bulleyes)
 
 ## Role variables
 Force omeka update

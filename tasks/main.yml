@@ -9,22 +9,9 @@
     path: "{{ omekaS_content_dest }}"
   register: omekaS_installed
 
-- name: Create a configuration backup directory
-  ansible.builtin.file:
-    path: "{{ omekaS_backup_directory }}"
-    state: directory
-
-- name: Backup your configurations before update (Update only)
-  ansible.builtin.copy:
-    src: "{{ omekaS_content_dest }}/{{ item }}"
-    dest: "{{ omekaS_backup_directory }}/{{ item }}"
-    mode: '0640'
-    force: true
-  with_items:
-    - "config"
-    - "modules"
-    - "themes"
-    - "files"
+- name: Backup Omeka S directories (update only)
+  ansible.builtin.command:
+    cmd: mv {{ omekaS_content_dest }} {{ omekaS_backup_directory }}
   when: omekaS_installed.stat.exists and omekaS_force_update
 
 - name: Download and extract Omeka S
@@ -47,8 +34,8 @@
 
 - name: Restore your configurations files (Update Only)
   ansible.builtin.copy:
-    src: "{{ omekaS_content_dest }}/{{ item }}"
-    dest: "{{ omekaS_backup_directory }}/{{ item }}"
+    src: "{{ omekaS_backup_directory }}/{{ item }}"
+    dest: "{{ omekaS_content_dest }}/"
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
     force: true

@@ -17,12 +17,12 @@
 
   vars:
     php_packages:
-      - php7.3
-      - php7.3-mysql
-      - php7.3-pdo
-      - php7.3-xml
-      - php7.3-mbstring
-      - php7.3-intl
+      - "php{{php_default_version_debian}}"
+      - "php{{php_default_version_debian}}-mysql"
+      - "php{{php_default_version_debian}}-pdo"
+      - "php{{php_default_version_debian}}-xml"
+      - "php{{php_default_version_debian}}-mbstring"
+      - "php{{php_default_version_debian}}-intl"
 
     apache_create_vhosts: true
     apache_vhosts_filename: "omeka.conf"
