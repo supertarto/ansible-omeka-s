@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Xavier Binois"
   description: "Install and configure Omeka S with Ansible"
-  role_name: omeka_S
+  role_name: "omeka-S"
   namespace: "supertarto"
   company:
   license: "GNU General Public License v3.0"
