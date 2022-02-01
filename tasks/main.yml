@@ -38,6 +38,7 @@
     dest: "{{ omekaS_content_dest }}/"
     owner: "{{ omekaS_web_owner }}"
     group: "{{ omekaS_web_group }}"
+    remote_src: true
     force: true
   with_items:
     - "config/local.config.php"
