@@ -5,6 +5,8 @@ name: CI
   push:
     branches:
       - master
+  schedule:
+    - cron: "0 5 * * 0"
 
 defaults:
   run:
@@ -17,52 +19,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v'
         with:
           path: 'supertarto.omeka-s'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible yamllint ansible-lint
+        run: pip3 install yamllint
 
       - name: Lint code.
         run: |
           yamllint .
-          ansible-lint
+
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
       matrix:
         distrib:
-          - debian10:latest
-          - debian11:latest
+          - debian10
+          - debian11
+          - debian12
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: 'supertarto.omeka-s'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker
-
-      - name: Disable AppArmor on Debian.
-        run: |
-            set -x
-            sudo apt-get install apparmor-profiles
-            sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
-            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
-        if: ${{ startsWith(matrix.distrib, 'debian') }}
+        run: pip3 install ansible molecule-plugins[docker] docker
 
       - name: Run Molecule tests.
         run: molecule test

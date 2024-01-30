@@ -1,6 +1,5 @@
 # Ansible Omeka S
-[![CI](https://github.com/supertarto/ansible-omeka-S/workflows/CI/badge.svg?event=push)](https://github.com/supertarto/ansible-omeka-S/actions?query=workflow%3ACI)
-
+[![CI](https://github.com/supertarto/ansible-omeka-S/actions/workflows/ci.yml/badge.svg)](https://github.com/supertarto/ansible-omeka-S/actions/workflows/ci.yml)
 Install and configure Omeka S with Ansible.
 
 
@@ -8,8 +7,8 @@ Install and configure Omeka S with Ansible.
 A web server, php and MariaDB. You can use supertarto.apache, supertarto.mariadb and supertarto.php
 
 ## Tested plateform
-* Debian 10 (Buster)
-* Debian 11 (Bulleyes)
+* Debian 11 (Bullseye)
+* Debian 12 (Bookworm)
 
 ## Role variables
 Force omeka update
@@ -51,12 +50,12 @@ roles:
     - role: supertarto.omeka_s
 vars:
 php_packages:
-    - php7.3
-    - php7.3-mysql
-    - php7.3-pdo
-    - php7.3-xml
-    - php7.3-mbstring
-    - php7.3-intl
+    - php8.2
+    - php8.2-mysql
+    - php8.2-pdo
+    - php8.2-xml
+    - php8.2-mbstring
+    - php8.2-intl
 
 apache_create_vhosts: true
 apache_vhosts_filename: "omeka.conf"
@@ -85,7 +84,7 @@ apache_vhost_config:
         - name: "{{ omeka_db_user }}"
           host: "{{ omeka_db_host }}"
           password: "{{ omeka_db_password }}"
-          priv: "{{ omeka_db_name }}.*:SELECT,INSERT,   UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
+          priv: "{{ omeka_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
 
     omekaS_release_version: "3.0.1"
     omekaS_db_user: omeka
@@ -96,7 +95,7 @@ apache_vhost_config:
 
 ## Installation
 ```
-ansible-galaxy install supertarto.omeka_s
+ansible-galaxy role install supertarto.omeka_s
 ```
 ## License
 GPL V3.0
