@@ -17,7 +17,7 @@ omekaS_force_update: false
 ```
 Define wich version to download, the download link, where to unarchive and the destination.
 ```yml
-omekaS_release_version: "3.0.1"
+omekaS_release_version: "4.0.4"
 omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
 omekaS_unarchive_dir: "/var/www"
 omekaS_content_dest: "/var/www/omeka/"
@@ -86,7 +86,7 @@ apache_vhost_config:
           password: "{{ omeka_db_password }}"
           priv: "{{ omeka_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
 
-    omekaS_release_version: "3.0.1"
+    omekaS_release_version: "4.0.4"
     omekaS_db_user: omeka
     omekaS_db_password: omekapass
     omekaS_db_name: omekadb
