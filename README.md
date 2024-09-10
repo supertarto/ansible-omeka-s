@@ -17,7 +17,7 @@ omekaS_force_update: false
 ```
 Define wich version to download, the download link, where to unarchive and the destination.
 ```yml
-omekaS_release_version: "4.0.4"
+omekaS_release_version: "4.1.1"
 omekaS_download_url: "https://github.com/omeka/omeka-s/releases/download/v{{ omekaS_release_version }}/omeka-s-{{ omekaS_release_version }}.zip"
 omekaS_unarchive_dir: "/var/www"
 omekaS_content_dest: "/var/www/omeka/"

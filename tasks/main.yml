@@ -1,5 +1,5 @@
 ---
-- name: "Install unzip"
+- name: "Install unzip and image magick"
   ansible.builtin.package:
     name: ['unzip', 'imagemagick']
     state: present
@@ -9,10 +9,31 @@
     path: "{{ omekaS_content_dest }}"
   register: omekaS_installed
 
-- name: Backup Omeka S directories (update only)
-  ansible.builtin.command:
-    cmd: mv {{ omekaS_content_dest }} {{ omekaS_backup_directory }}
-  when: omekaS_installed.stat.exists and omekaS_force_update
+- block:
+
+    - name: Check if Omeka S Backup already exists
+      stat:
+        path: "{{ omekaS_backup_directory }}"
+      register: omekaS_backup
+
+    - name: Remove Old Omeka S Backup folder before update
+      ansible.builtin.file:
+        path: "{{ omekaS_backup_directory }}"
+        state: absent
+      when: omekaS_backup.stat.exists
+
+    - name: BackUp Omeka S Folder
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ omekaS_content_dest }}/"
+        dest: "{{ omekaS_backup_directory }}"
+
+    - name: Remove Omeka S Folder before update
+      ansible.builtin.file:
+        path: "{{ omekaS_content_dest }}"
+        state: absent
+
+  when: omekaS_force_update and omekaS_installed.stat.exists
 
 - name: Download and extract Omeka S
   ansible.builtin.unarchive:
