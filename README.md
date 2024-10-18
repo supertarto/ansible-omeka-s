@@ -86,7 +86,7 @@ apache_vhost_config:
           password: "{{ omeka_db_password }}"
           priv: "{{ omeka_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
 
-    omekaS_release_version: "4.0.4"
+    omekaS_release_version: "4.1.1"
     omekaS_db_user: omeka
     omekaS_db_password: omekapass
     omekaS_db_name: omekadb
